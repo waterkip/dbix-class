@@ -213,7 +213,8 @@ Set this to a true value for a column whose value is somehow
 automatically set, defaults to false. This is used to determine which
 columns to empty when cloning objects using
 L<DBIx::Class::Row/copy>. It is also used by
-L<DBIx::Class::Schema/deploy>.
+L<DBIx::Class::Schema/deploy>, and L<DBIx::Class::Row/insert> (to
+retrieve the new value after insertion).
 
 =item is_numeric
 
@@ -264,7 +265,7 @@ automatically.
   { retrieve_on_insert => 1 }
 
 For every column where this is set to true, DBIC will retrieve the RDBMS-side
-value upon a new row insertion (normally only the autoincrement PK is
+value upon a new row insertion (normally only a primary key declared with C<is_auto_increment> is
 retrieved on insert). C<INSERT ... RETURNING> is used automatically if
 supported by the underlying storage, otherwise an extra SELECT statement is
 executed to retrieve the missing data.
